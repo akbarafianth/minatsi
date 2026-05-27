@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +13,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- CHART -->
+  <!-- CHART JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- PDF -->
@@ -25,18 +24,23 @@
 
   <div class="container">
 
+    <!-- HEADER -->
     <div class="header">
+
       <h1>Career Interest Prediction</h1>
+
       <p>
         Tes Prediksi Karir Mahasiswa Sistem Informasi ITS
       </p>
+
     </div>
 
+    <!-- FORM -->
     <div class="form-container">
 
       <form id="careerForm"></form>
 
-      <button onclick="showResult()" type="button">
+      <button type="button" onclick="showResult()">
         Lihat Hasil Prediksi
       </button>
 
@@ -66,6 +70,7 @@
 
           <div class="description" id="careerDescription"></div>
 
+          <!-- KARIR -->
           <div class="career-list" id="careerList"></div>
 
           <!-- KELEBIHAN -->
@@ -95,8 +100,9 @@
 
         </div>
 
+        <!-- EXPORT PDF -->
         <button class="export-btn" onclick="downloadPDF()">
-          Export ke PDF
+          Export Hasil ke PDF
         </button>
 
       </div>
