@@ -1,419 +1,242 @@
-const questions = [
-
-  "Aktivitas yang paling kamu sukai?",
-  "Mata kuliah favoritmu?",
-  "Saat ada masalah dalam project?",
-  "Skill yang paling ingin kamu kuasai?",
-  "Kamu lebih nyaman bekerja dengan?",
-  "Kegiatan organisasi favorit?",
-  "Kamu lebih suka pekerjaan yang?",
-  "Saat melihat data besar?",
-  "Bagian project IT favorit?",
-  "Kamu lebih suka membuat?",
-  "Saat presentasi kelompok?",
-  "Jika ikut lomba?",
-  "Kamu lebih tertarik belajar?",
-  "Hal yang paling membuatmu puas?",
-  "Kamu lebih suka bekerja?",
-  "Ketika perusahaan mengalami penurunan performa?",
-  "Role yang paling ingin kamu coba?",
-  "Kamu lebih suka memecahkan masalah dengan?",
-  "Hal paling penting dalam project?",
-  "Karir impianmu lebih dekat dengan?"
-
-];
-
-const options = [
-
-  [
-    ["Menganalisis data","analyst"],
-    ["Membuat aplikasi","engineer"],
-    ["Menyusun strategi bisnis","consultant"]
-  ],
-
-  [
-    ["Business Intelligence","analyst"],
-    ["Pemrograman","engineer"],
-    ["Manajemen Bisnis","consultant"]
-  ],
-
-  [
-    ["Mencari akar masalah","analyst"],
-    ["Memperbaiki sistem","engineer"],
-    ["Membuat solusi bisnis","consultant"]
-  ],
-
-  [
-    ["Data Analytics","analyst"],
-    ["Artificial Intelligence","engineer"],
-    ["Public Speaking","consultant"]
-  ],
-
-  [
-    ["Data","analyst"],
-    ["Teknologi","engineer"],
-    ["Diskusi","consultant"]
-  ],
-
-  [
-    ["Research","analyst"],
-    ["Divisi IT","engineer"],
-    ["Hubungan eksternal","consultant"]
-  ],
-
-  [
-    ["Detail dan terstruktur","analyst"],
-    ["Teknis dan inovatif","engineer"],
-    ["Dinamis dan komunikatif","consultant"]
-  ],
-
-  [
-    ["Tertarik menganalisis","analyst"],
-    ["Ingin membuat sistem","engineer"],
-    ["Memikirkan strategi","consultant"]
-  ],
-
-  [
-    ["Requirement analysis","analyst"],
-    ["Development system","engineer"],
-    ["Business process","consultant"]
-  ],
-
-  [
-    ["Dashboard","analyst"],
-    ["Website dan aplikasi","engineer"],
-    ["Strategi bisnis","consultant"]
-  ],
-
-  [
-    ["Menyiapkan data","analyst"],
-    ["Demo aplikasi","engineer"],
-    ["Menjadi presenter","consultant"]
-  ],
-
-  [
-    ["Data competition","analyst"],
-    ["Hackathon","engineer"],
-    ["Business case","consultant"]
-  ],
-
-  [
-    ["Visualisasi data","analyst"],
-    ["Framework terbaru","engineer"],
-    ["Strategi perusahaan","consultant"]
-  ],
-
-  [
-    ["Menemukan insight","analyst"],
-    ["Membuat sistem berjalan","engineer"],
-    ["Membantu client","consultant"]
-  ],
-
-  [
-    ["Individu fokus","analyst"],
-    ["Tim developer","engineer"],
-    ["Bertemu banyak orang","consultant"]
-  ],
-
-  [
-    ["Menganalisis data penjualan","analyst"],
-    ["Membangun sistem baru","engineer"],
-    ["Membuat strategi bisnis","consultant"]
-  ],
-
-  [
-    ["Data Analyst","analyst"],
-    ["Software Engineer","engineer"],
-    ["Business Consultant","consultant"]
-  ],
-
-  [
-    ["Data dan statistik","analyst"],
-    ["Teknologi","engineer"],
-    ["Diskusi dan komunikasi","consultant"]
-  ],
-
-  [
-    ["Akurasi data","analyst"],
-    ["Performa sistem","engineer"],
-    ["Kepuasan client","consultant"]
-  ],
-
-  [
-    ["Analis perusahaan","analyst"],
-    ["Engineer teknologi","engineer"],
-    ["Konsultan bisnis","consultant"]
-  ]
-
-];
-
-const form = document.getElementById("careerForm");
-
-questions.forEach((question,index)=>{
-
-  let html = `
-    <div class="question-box">
-
-      <h3>${index+1}. ${question}</h3>
-  `;
-
-  options[index].forEach(option=>{
-
-    html += `
-      <label class="option">
-
-        <input type="radio"
-        name="q${index+1}"
-        value="${option[1]}">
-
-        <span>${option[0]}</span>
-
-      </label>
-    `;
-
-  });
-
-  html += `</div>`;
-
-  form.innerHTML += html;
-
-});
-
-let chart;
-
-function showResult(){
-
-  let analyst = 0;
-  let engineer = 0;
-  let consultant = 0;
-
-  for(let i=1;i<=questions.length;i++){
-
-    const selected =
-    document.querySelector(`input[name="q${i}"]:checked`);
-
-    if(!selected){
-
-      alert("Harap jawab semua pertanyaan!");
-      return;
-
-    }
-
-    if(selected.value === "analyst"){
-      analyst++;
-    }
-
-    else if(selected.value === "engineer"){
-      engineer++;
-    }
-
-    else{
-      consultant++;
-    }
-
-  }
-
-  document.getElementById("loadingBox")
-  .style.display = "block";
-
-  setTimeout(()=>{
-
-    document.getElementById("loadingBox")
-    .style.display = "none";
-
-    document.getElementById("resultBox")
-    .style.display = "block";
-
-    const total = questions.length;
-
-    const analystPercent =
-    Math.round((analyst/total)*100);
-
-    const engineerPercent =
-    Math.round((engineer/total)*100);
-
-    const consultantPercent =
-    Math.round((consultant/total)*100);
-
-    let result = "";
-    let desc = "";
-    let careers = [];
-    let strengths = [];
-    let skills = [];
-
-    if(analyst >= engineer && analyst >= consultant){
-
-      result = "ANALYST";
-
-      desc =
-      "Kamu memiliki kemampuan analitis yang kuat dan senang mencari insight dari data.";
-
-      careers = [
-        "Data Analyst",
-        "Business Analyst",
-        "System Analyst",
-        "Software Analyst"
-      ];
-
-      strengths = [
-        "Critical Thinking",
-        "Analytical Skill",
-        "Detail Oriented",
-        "Problem Solving"
-      ];
-
-      skills = [
-        "SQL",
-        "Python",
-        "Power BI",
-        "Data Visualization"
-      ];
-
-    }
-
-    else if(engineer >= analyst && engineer >= consultant){
-
-      result = "ENGINEER";
-
-      desc =
-      "Kamu tertarik dengan teknologi, coding, dan pengembangan sistem.";
-
-      careers = [
-        "Software Engineer",
-        "AI Engineer",
-        "Backend Developer",
-        "Machine Learning Engineer"
-      ];
-
-      strengths = [
-        "Logical Thinking",
-        "Tech Oriented",
-        "Fast Learner",
-        "Innovation"
-      ];
-
-      skills = [
-        "JavaScript",
-        "React",
-        "Node JS",
-        "Machine Learning"
-      ];
-
-    }
-
-    else{
-
-      result = "CONSULTANT";
-
-      desc =
-      "Kamu unggul dalam komunikasi, strategi bisnis, dan problem solving.";
-
-      careers = [
-        "Business Consultant",
-        "IT Consultant",
-        "Management Consultant",
-        "Business Process Consultant"
-      ];
-
-      strengths = [
-        "Leadership",
-        "Communication",
-        "Strategic Thinking",
-        "Presentation Skill"
-      ];
-
-      skills = [
-        "Business Analysis",
-        "Communication Skill",
-        "Project Management",
-        "BPMN"
-      ];
-
-    }
-
-    // OUTPUT
-    document.getElementById("careerBadge")
-    .innerText = result;
-
-    document.getElementById("careerDescription")
-    .innerText = desc;
-
-    document.getElementById("careerList")
-    .innerHTML =
-    careers.map(career=>
-      `<div class="career-item">${career}</div>`
-    ).join("");
-
-    document.getElementById("strengthList")
-    .innerHTML =
-    strengths.map(item=>
-      `<li>${item}</li>`
-    ).join("");
-
-    document.getElementById("skillList")
-    .innerHTML =
-    skills.map(item=>
-      `<li>${item}</li>`
-    ).join("");
-
-    // CHART
-    if(chart){
-      chart.destroy();
-    }
-
-    const ctx =
-    document.getElementById("interestChart");
-
-    chart = new Chart(ctx, {
-
-      type:'radar',
-
-      data:{
-
-        labels:[
-          'Analyst',
-          'Engineer',
-          'Consultant'
-        ],
-
-        datasets:[{
-
-          label:'Minat Karir',
-
-          data:[
-            analystPercent,
-            engineerPercent,
-            consultantPercent
-          ],
-
-          backgroundColor:'rgba(37,99,235,0.2)',
-
-          borderColor:'#2563eb',
-
-          borderWidth:3
-
-        }]
-
-      }
-
-    });
-
-    document.getElementById("resultBox")
-    .scrollIntoView({
-      behavior:'smooth'
-    });
-
-  },2000);
-
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-function downloadPDF(){
+body{
+  background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+  min-height:100vh;
+  padding:40px;
+  color:white;
+}
 
-  const element =
-  document.getElementById("pdfContent");
+.container{
+  max-width:1100px;
+  margin:auto;
+}
 
-  html2pdf().from(element).save(
-    "hasil-prediksi-karir.pdf"
-  );
+.header{
+  text-align:center;
+  margin-bottom:40px;
+  animation:fadeDown 1s ease;
+}
+
+.header h1{
+  font-size:48px;
+  margin-bottom:10px;
+}
+
+.header p{
+  color:#dbeafe;
+  font-size:18px;
+}
+
+@keyframes fadeDown{
+  from{
+    opacity:0;
+    transform:translateY(-30px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.form-container{
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  padding:40px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.question-box{
+  background:white;
+  color:#1e293b;
+  padding:25px;
+  border-radius:18px;
+  margin-bottom:25px;
+  transition:0.3s;
+}
+
+.question-box:hover{
+  transform:translateY(-3px);
+}
+
+.question-box h3{
+  margin-bottom:20px;
+  font-size:20px;
+}
+
+.option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:0.3s;
+  border:2px solid transparent;
+}
+
+.option:hover{
+  background:#eff6ff;
+  border-color:#2563eb;
+}
+
+.option input{
+  transform:scale(1.2);
+}
+
+button{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+}
+
+.loading{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+}
+
+.loader{
+  width:70px;
+  height:70px;
+  border:7px solid rgba(255,255,255,0.3);
+  border-top:7px solid white;
+  border-radius:50%;
+  margin:auto;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  100%{
+    transform:rotate(360deg);
+  }
+}
+
+.result{
+  display:none;
+  margin-top:40px;
+  animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.result-card{
+  background:white;
+  color:#1e293b;
+  border-radius:25px;
+  padding:40px;
+}
+
+.result-title{
+  text-align:center;
+}
+
+.result-title h2{
+  color:#2563eb;
+  font-size:38px;
+}
+
+.badge{
+  display:inline-block;
+  margin-top:15px;
+  background:#2563eb;
+  color:white;
+  padding:12px 25px;
+  border-radius:30px;
+  font-weight:600;
+}
+
+.description{
+  margin-top:25px;
+  text-align:center;
+  line-height:1.8;
+  color:#475569;
+}
+
+.career-list{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.career-item{
+  background:#eff6ff;
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  color:#2563eb;
+  font-weight:600;
+}
+
+.extra-box{
+  margin-top:30px;
+  background:#f8fafc;
+  padding:25px;
+  border-radius:18px;
+}
+
+.extra-box h3{
+  margin-bottom:15px;
+  color:#2563eb;
+}
+
+.extra-box ul{
+  padding-left:20px;
+  line-height:2;
+}
+
+.chart-container{
+  margin-top:40px;
+}
+
+.export-btn{
+  background:linear-gradient(135deg,#14b8a6,#0f766e);
+}
+
+@media(max-width:768px){
+
+  body{
+    padding:20px;
+  }
+
+  .header h1{
+    font-size:34px;
+  }
+
+  .form-container{
+    padding:25px;
+  }
 
 }
