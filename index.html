@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Career Prediction Test</title>
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- CHART -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <h1>Career Interest Prediction</h1>
+      <p>
+        Tes Prediksi Karir Mahasiswa Sistem Informasi ITS
+      </p>
+    </div>
+
+    <div class="form-container">
+
+      <form id="careerForm"></form>
+
+      <button onclick="showResult()" type="button">
+        Lihat Hasil Prediksi
+      </button>
+
+      <!-- LOADING -->
+      <div class="loading" id="loadingBox">
+
+        <div class="loader"></div>
+
+        <p>
+          Sedang menganalisis minat karir...
+        </p>
+
+      </div>
+
+      <!-- RESULT -->
+      <div class="result" id="resultBox">
+
+        <div class="result-card" id="pdfContent">
+
+          <div class="result-title">
+
+            <h2>Hasil Prediksi Karir</h2>
+
+            <div class="badge" id="careerBadge"></div>
+
+          </div>
+
+          <div class="description" id="careerDescription"></div>
+
+          <div class="career-list" id="careerList"></div>
+
+          <!-- KELEBIHAN -->
+          <div class="extra-box">
+
+            <h3>Kelebihan Kamu</h3>
+
+            <ul id="strengthList"></ul>
+
+          </div>
+
+          <!-- SKILL -->
+          <div class="extra-box">
+
+            <h3>Skill yang Direkomendasikan</h3>
+
+            <ul id="skillList"></ul>
+
+          </div>
+
+          <!-- CHART -->
+          <div class="chart-container">
+
+            <canvas id="interestChart"></canvas>
+
+          </div>
+
+        </div>
+
+        <button class="export-btn" onclick="downloadPDF()">
+          Export ke PDF
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>
